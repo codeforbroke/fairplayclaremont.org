@@ -1,0 +1,131 @@
+---
+const links = [
+  { label: 'The Inequity', href: '#inequity' },
+  { label: 'The Law',      href: '#law' },
+  { label: 'The Ordinance',href: '#ordinance' },
+  { label: 'Take Action',  href: '#action' },
+];
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+  <div class="px-6">
+    <nav aria-label="Primary" class="max-w-6xl mx-auto h-14 flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="/" class="font-display text-lg font-semibold text-gray-900 tracking-tight">
+      Fair Play <span class="text-forest-mid">Claremont</span>
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="hidden md:flex items-center gap-6">
+      {links.map(l => (
+        <li>
+          <a href={l.href} class="text-base font-medium text-gray-700 hover:text-gray-900 transition-colors duration-150">
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Desktop CTA -->
+    <a
+      href="https://www.ipetitions.com/petition/fair-and-equal-girls-in-claremont"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hidden md:inline-flex items-center gap-1.5 bg-forest-mid hover:bg-forest text-white text-base font-bold px-4 py-2 rounded-md transition-colors duration-150"
+    >
+      Sign the petition<span class="sr-only"> (opens in new tab)</span>
+    </a>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="menu-btn"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      class="md:hidden flex flex-col gap-1.5 p-1"
+    >
+      <span class="block w-5 h-px bg-gray-700 transition-all duration-200" id="bar1"></span>
+      <span class="block w-5 h-px bg-gray-700 transition-all duration-200" id="bar2"></span>
+      <span class="block w-5 h-px bg-gray-700 transition-all duration-200" id="bar3"></span>
+    </button>
+    </nav>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-gray-100 bg-white"
+  >
+    <ul class="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-4">
+      {links.map(l => (
+        <li>
+          <a href={l.href} class="block text-base font-medium text-gray-700 hover:text-gray-900 mobile-nav-link">
+            {l.label}
+          </a>
+        </li>
+      ))}
+      <li class="pt-2 border-t border-gray-100">
+        <a
+          href="https://www.ipetitions.com/petition/fair-and-equal-girls-in-claremont"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block text-center bg-forest-mid text-white text-base font-bold px-4 py-2.5 rounded-md"
+        >
+          Sign the petition<span class="sr-only"> (opens in new tab)</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('menu-btn')!;
+  const menu = document.getElementById('mobile-menu')!;
+  const bar1 = document.getElementById('bar1')!;
+  const bar2 = document.getElementById('bar2')!;
+  const bar3 = document.getElementById('bar3')!;
+
+  const setBars = (open: boolean) => {
+    bar1.style.transform = open ? 'translateY(6px) rotate(45deg)' : '';
+    bar2.style.opacity = open ? '0' : '';
+    bar3.style.transform = open ? 'translateY(-6px) rotate(-45deg)' : '';
+  };
+
+  const openMenu = () => {
+    menu.classList.remove('hidden');
+    btn.setAttribute('aria-expanded', 'true');
+    setBars(true);
+    // Move focus to the first link so keyboard users land inside the menu.
+    menu.querySelector<HTMLElement>('a')?.focus();
+  };
+
+  const closeMenu = ({ focusBtn = false } = {}) => {
+    menu.classList.add('hidden');
+    btn.setAttribute('aria-expanded', 'false');
+    setBars(false);
+    if (focusBtn) btn.focus();
+  };
+
+  const isOpen = () => !menu.classList.contains('hidden');
+
+  btn.addEventListener('click', () => {
+    isOpen() ? closeMenu() : openMenu();
+  });
+
+  // Close on link click
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => closeMenu());
+  });
+
+  // Escape closes and returns focus to the toggle button.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen()) closeMenu({ focusBtn: true });
+  });
+
+  // Click outside the menu/button closes it.
+  document.addEventListener('click', (e) => {
+    const target = e.target as Node;
+    if (isOpen() && !menu.contains(target) && !btn.contains(target)) closeMenu();
+  });
+</script>

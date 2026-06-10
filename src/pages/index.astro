@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import StatBar from '../components/StatBar.astro';
+import FieldComparison from '../components/FieldComparison.astro';
+import LawAndAsks from '../components/LawAndAsks.astro';
+import CtaFooter from '../components/CtaFooter.astro';
+---
+
+<Base>
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:text-forest focus:px-4 focus:py-2 focus:rounded focus:shadow">
+    Skip to main content
+  </a>
+  <Nav />
+  <main id="main-content">
+    <Hero />
+    <StatBar />
+    <FieldComparison />
+    <LawAndAsks />
+    <CtaFooter />
+  </main>
+</Base>

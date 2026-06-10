@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-forest:       #0F6E56;
+  --color-forest-deep:  #085041;
+  --color-forest-mid:   #1D9E75;
+  --color-forest-light: #5DCAA5;
+  --color-forest-pale:  #9FE1CB;
+  --color-forest-ghost: #E1F5EE;
+  --color-boys-bg:      #E6F1FB;
+  --color-boys-text:    #185FA5;
+  --color-girls-bg:     #FBEAF0;
+  --color-girls-text:   #C0376A;
+  --color-yes-text:     #0F6E56;
+  --color-no-text:      #B42318;
+  --color-warn-text:    #854F0B;
+  --color-cream:        #FBF8EF;
+  --color-sand:         #F7F3E8;
+  --color-dirt:         #C68E4E;
+  --color-softball:     #C9D63D;
+  --color-seam:         #E4572E;
+  --font-sans:          'Inter', system-ui, sans-serif;
+  --font-display:       'Outfit', 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background-color: var(--color-cream);
+    color: #111827;
+  }
+
+  /* Visible focus indicator. Using currentColor guarantees the ring
+     contrasts with the element's own background on both light and dark
+     surfaces (text is, by definition, readable against that background). */
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility tag-yes {
+  background-color: var(--color-forest-ghost);
+  color: var(--color-forest-deep);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+}
+
+@utility tag-no {
+  background-color: #fff7ed;
+  color: var(--color-no-text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+}
+
+@utility tag-neutral {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+}
